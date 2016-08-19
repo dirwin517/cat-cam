@@ -23,6 +23,8 @@ app.get('/', function (req, res) {
 
 app.get('/camera', function (req, res) {
     //this may be the shittiest auth ever, but its only temporary
+    console.log('cookes', req.cookies, '\n');
+    
     if(config.users[req.cookies.username] && config.users[req.cookies.username].password === req.cookies.password){
 
         console.log('params', req.query);
@@ -52,6 +54,7 @@ app.get('/camera', function (req, res) {
         });
     }
     else {
+        console.log('failed to auth');
         res.json({});
     }
 
