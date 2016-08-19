@@ -1,0 +1,56 @@
+[
+  {
+    "name" : "hallway",
+    "ip" : "192.168.0.103",
+    "port" : 80,
+    "username" : "admin",
+    "password" : "admin",
+    "video" : "/video.cgi?resolution=VGA",
+    "audio" : "/audio.cgi"
+  },
+  {
+    "name" : "kitchen",
+    "ip" : "192.168.0.104",
+    "port" : 80,
+    "username" : "admin",
+    "password" : "admin",
+    "video" : "/video.cgi?resolution=VGA",
+    "audio" : "/audio.cgi"
+  },
+  {
+    "name" : "livingroom",
+    "ip" : "192.168.0.108",
+    "port" : 80,
+    "username" : "admin",
+    "password" : "admin",
+    "video" : "/video.cgi?resolution=VGA",
+    "audio" : "/audio.cgi"
+  },
+  {
+    "name" : "frontdoor",
+    "ip" : "192.168.0.106",
+    "port" : 80,
+    "username" : "admin",
+    "password" : "admin",
+    "video" : "/video.cgi?resolution=VGA",
+    "audio" : "/audio.cgi"
+  },
+  {
+    "name" : "underbed",
+    "ip" : "192.168.0.107",
+    "port" : 80,
+    "username" : "admin",
+    "password" : "admin",
+    "video" : "/video.cgi?resolution=VGA",
+    "audio" : "/audio.cgi"
+  },
+  {
+    "name" : "diningroom",
+    "ip" : "192.168.0.105",
+    "port" : 80,
+    "username" : "admin",
+    "password" : "admin",
+    "video" : "/video.cgi?resolution=VGA",
+    "audio" : "/audio.cgi"
+  }
+]
