@@ -49,10 +49,10 @@
     "audio" : "/audio.cgi",
     "snapshot" : "/snapshot.cgi",
     "ptz" : {
-      "left"  : "/ptzleft.cgi?step=0&act=left&speed=25",
-      "right" : "/ptzright.cgi?step=0&act=right&speed=25",
-      "up"    : "/ptzup.cgi?step=0&act=up&speed=25",
-      "down"  : "/ptzdown.cgi?step=0&act=down&speed=25"
+      "left"  : "/cgi-bin/hi3510/ptzleft.cgi",
+      "right" : "/cgi-bin/hi3510/ptzright.cgi",
+      "up"    : "/cgi-bin/hi3510/ptzup.cgi",
+      "down"  : "/cgi-bin/hi3510/ptzdown.cgi"
     }
   },
   {
@@ -65,10 +65,10 @@
     "audio" : "/audio.cgi",
     "snapshot" : "/snapshot.cgi",
     "ptz" : {
-      "left"  : "/ptzleft.cgi?step=0&act=left&speed=25",
-      "right" : "/ptzright.cgi?step=0&act=right&speed=25",
-      "up"    : "/ptzup.cgi?step=0&act=up&speed=25",
-      "down"  : "/ptzdown.cgi?step=0&act=down&speed=25"
+      "left"  : "/cgi-bin/hi3510/ptzleft.cgi",
+      "right" : "/cgi-bin/hi3510/ptzright.cgi",
+      "up"    : "/cgi-bin/hi3510/ptzup.cgi",
+      "down"  : "/cgi-bin/hi3510/ptzdown.cgi"
     }
   }
 ]
