@@ -13,7 +13,12 @@ app.use(cookieParser());
 
 var config = require('./config.json');
 
+process.on('uncaughtException', function (err) {
+    console.log('uncaught error ',err);
+});
+
 app.get('/', function (req, res) {
+    console.log('got root page!');
     var Mustache = require('mustache');
     var fs = require('fs');
     var template = fs.readFileSync('./public/cameras.mustache', 'utf8');
@@ -24,7 +29,7 @@ app.get('/', function (req, res) {
 app.get('/camera', function (req, res) {
     //this may be the shittiest auth ever, but its only temporary
     console.log('cookes', req.cookies, '\n');
-    
+
     if(config.users[req.cookies.username] && config.users[req.cookies.username].password === req.cookies.password){
 
         console.log('params', req.query);
