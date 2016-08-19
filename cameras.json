@@ -47,7 +47,7 @@
     "password" : "admin",
     "video" : "/video.cgi?resolution=VGA",
     "audio" : "/audio.cgi",
-    "snapshot" : "/IMAGE.JPG"
+    "snapshot" : "/snapshot.jpg"
   },
   {
     "name" : "diningroom",
@@ -57,6 +57,6 @@
     "password" : "admin",
     "video" : "/video.cgi?resolution=VGA",
     "audio" : "/audio.cgi",
-    "snapshot" : "/IMAGE.JPG"
+    "snapshot" : "/snapshot.jpg"
   }
 ]
