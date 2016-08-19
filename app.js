@@ -51,7 +51,8 @@ app.get('/single', function (req, res) {
 
     if(query && query.camera){
         var template = fs.readFileSync('./public/camera.mustache', 'utf8');
-        return cameraManager.getCamera(req.query, (err, camera) => {
+        cameraManager.getCamera(req.query, (err, camera) => {
+            console.log('err', err, 'camera', camera);
             var indexPage = Mustache.render(template, {
                 camera : camera
             });
@@ -59,7 +60,10 @@ app.get('/single', function (req, res) {
             res.send(indexPage);
         });
     }
-    res.send(null);
+    else {
+        res.send(null);
+    }
+
 });
 
 
