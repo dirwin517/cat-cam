@@ -28,13 +28,21 @@ app.get('/camera', function (req, res) {
         console.log('params', req.query);
         cameraManager.getCamera(req.query, (err, camera) => {
             if(err){
-                return res.send('Nope');
+                return res.json({
+                    code : 'Nope',
+                    message : err
+                });
             }
             req.socket.setTimeout(2147483647);
 
             process.nextTick(() => {
                 res.setHeader('connection', 'keep-alive');
                 var cameraStream = cameraManager.proxyVideo(camera);
+                cameraStream.on('error', (err) => {
+                    res.json({
+                        err : err
+                    });
+                });
                 cameraStream.on('close', () =>{
                     console.log('shit man the ' + camera.name + ' died');
                 });
