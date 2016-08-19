@@ -21,7 +21,6 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "mustache": "^2.2.1",
-    "request": "^2.74.0",
-    "speaker": "^0.3.0"
+    "request": "^2.74.0"
   }
 }
