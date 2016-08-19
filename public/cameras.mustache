@@ -12,18 +12,14 @@
 
 <body>
 
-<div id="wrap">
-  {{#cameras}}
-  <div class="box">
-      <div class="boxInner">
+{{#cameras}}
+    <span class="box">
 
-        <a target="_blank" href="camera?name={{name}}"><img src="snapshot?name={{name}}"></a>
-        <br/>
+      <a target="_blank" href="camera?name={{name}}"><img src="snapshot?name={{name}}"></a>
+      <br/>
 
-      </div>
-  </div>
-        {{/cameras}}
-    </div>
+  </span>
+{{/cameras}}
 
 </body>
 </html>
