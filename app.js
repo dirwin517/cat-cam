@@ -95,6 +95,19 @@ app.get('/camera', function (req, res) {
     },res.json);
 });
 
+app.get('ptz', function(req, res){
+
+    cameraManager.getCamera(req.query, (err, camera) => {
+        console.log('err', err, 'camera', camera);
+
+        cameraManager.ptz(camera, req.query.action);
+
+        res.send(null);
+    });
+
+
+});
+
 app.get('/snapshot', function (req, res) {
     auth(req,function() {
         console.log('params', req.query);

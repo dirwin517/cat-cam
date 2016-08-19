@@ -76,10 +76,25 @@ module.exports = function(cameras){
         });
     }
 
+    function ptz(camera, action){
+
+        var url = camera.ptz[action];
+
+        return request.get(url, {
+            auth : {
+                user : camera.username,
+                pass : camera.password
+            }
+        }).on('error', function(err) {
+            console.log('ptz error', err);
+        });
+    }
+
     return {
         getCamera : getCamera,
         proxyVideo : proxyVideo,
         proxyAudio: proxyAudio,
-        proxySnapshot : proxySnapshot
+        proxySnapshot : proxySnapshot,
+        ptz : ptz
     };
 };
