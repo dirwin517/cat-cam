@@ -42,6 +42,24 @@ module.exports = function(cameras){
         });
     }
 
+
+    function proxySnapshot(camera){
+        var basicAuthToke = new Buffer( camera.username + ':' + camera.password).toString('base64');
+        var url = 'http://' + camera.ip + ':' + camera.port + camera.snapshot;
+        console.log('proxying ', url, 'with', basicAuthToke);
+        return request.get(url, {
+            auth : {
+                user : camera.username,
+                pass : camera.password
+            },
+            gzip : true
+        })
+            .on('error', function(err) {
+                console.log('proxy error', err);
+            });
+    }
+
+
     function proxyAudio(camera){
         //http://192.168.1.108:5182/audio.cgi
         var basicAuthToke = new Buffer( camera.username + ':' + camera.password).toString('base64');
@@ -61,6 +79,7 @@ module.exports = function(cameras){
     return {
         getCamera : getCamera,
         proxyVideo : proxyVideo,
-        proxyAudio: proxyAudio
+        proxyAudio: proxyAudio,
+        proxySnapshot : proxySnapshot
     };
 };

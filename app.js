@@ -26,18 +26,26 @@ app.get('/', function (req, res) {
     res.send(indexPage);
 });
 
+function auth(req, next, unauth){
+    if(config.users[req.cookies.username] && config.users[req.cookies.username].password === req.cookies.password) {
+        next();
+    }
+    else {
+        unauth({ message : 'unauthorized'});
+    }
+}
+
 app.get('/camera', function (req, res) {
     //this may be the shittiest auth ever, but its only temporary
     console.log('cookes', req.cookies, '\n');
 
-    if(config.users[req.cookies.username] && config.users[req.cookies.username].password === req.cookies.password){
-
+    auth(req,function() {
         console.log('params', req.query);
         cameraManager.getCamera(req.query, (err, camera) => {
-            if(err){
+            if (err) {
                 return res.json({
-                    code : 'Nope',
-                    message : err
+                    code: 'Nope',
+                    message: err
                 });
             }
             req.socket.setTimeout(2147483647);
@@ -47,22 +55,42 @@ app.get('/camera', function (req, res) {
                 var cameraStream = cameraManager.proxyVideo(camera);
                 cameraStream.on('error', (err) => {
                     res.json({
-                        err : err
+                        err: err
                     });
                 });
-                cameraStream.on('close', () =>{
-                    console.log('shit man the ' + camera.name + ' died');
-                });
-
                 cameraStream.pipe(res);//.pipe(res);
             });
         });
-    }
-    else {
-        console.log('failed to auth');
-        res.json({});
-    }
+    },res.json());
+});
 
+app.get('/snapshot', function (req, res) {
+    //this may be the shittiest auth ever, but its only temporary
+    console.log('cookes', req.cookies, '\n');
+
+    auth(req,function() {
+        console.log('params', req.query);
+        cameraManager.getCamera(req.query, (err, camera) => {
+            if (err) {
+                return res.json({
+                    code: 'Nope',
+                    message: err
+                });
+            }
+            req.socket.setTimeout(2147483647);
+
+            process.nextTick(() => {
+                res.setHeader('connection', 'keep-alive');
+                var cameraStream = cameraManager.proxySnapshot(camera);
+                cameraStream.on('error', (err) => {
+                    res.json({
+                        err: err
+                    });
+                });
+                cameraStream.pipe(res);//.pipe(res);
+            });
+        });
+    },res.json());
 });
 
 app.listen(port, function () {

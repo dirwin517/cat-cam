@@ -6,7 +6,8 @@
     "username" : "admin",
     "password" : "admin",
     "video" : "/video.cgi?resolution=VGA",
-    "audio" : "/audio.cgi"
+    "audio" : "/audio.cgi",
+    "snapshot" : "/snapshot.cgi"
   },
   {
     "name" : "kitchen",
@@ -15,7 +16,8 @@
     "username" : "admin",
     "password" : "admin",
     "video" : "/video.cgi?resolution=VGA",
-    "audio" : "/audio.cgi"
+    "audio" : "/audio.cgi",
+    "snapshot" : "/snapshot.cgi"
   },
   {
     "name" : "livingroom",
@@ -24,7 +26,8 @@
     "username" : "admin",
     "password" : "admin",
     "video" : "/video.cgi?resolution=VGA",
-    "audio" : "/audio.cgi"
+    "audio" : "/audio.cgi",
+    "snapshot" : "/snapshot.cgi"
   },
   {
     "name" : "frontdoor",
@@ -33,7 +36,8 @@
     "username" : "admin",
     "password" : "admin",
     "video" : "/video.cgi?resolution=VGA",
-    "audio" : "/audio.cgi"
+    "audio" : "/audio.cgi",
+    "snapshot" : "/snapshot.cgi"
   },
   {
     "name" : "underbed",
@@ -42,7 +46,8 @@
     "username" : "admin",
     "password" : "admin",
     "video" : "/video.cgi?resolution=VGA",
-    "audio" : "/audio.cgi"
+    "audio" : "/audio.cgi",
+    "snapshot" : "/snapshot.cgi"
   },
   {
     "name" : "diningroom",
@@ -51,6 +56,7 @@
     "username" : "admin",
     "password" : "admin",
     "video" : "/video.cgi?resolution=VGA",
-    "audio" : "/audio.cgi"
+    "audio" : "/audio.cgi",
+    "snapshot" : "/snapshot.cgi"
   }
 ]
