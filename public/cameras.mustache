@@ -5,7 +5,14 @@
     <title></title>
 
     <style type="text/css">
-
+      .miniStill {
+          height:240px;
+          width:320px;
+      }
+      .liveCam {
+          height:480px;
+          width:640px;
+      }
     </style>
 
 </head>
@@ -13,8 +20,10 @@
 <body>
 
 {{#cameras}}
-      <a target="_blank" href="/single?name={{name}}"><img src="snapshot?name={{name}}"></a>
+      <a target="liveFrame" href="/single?name={{name}}"><img src="snapshot?name={{name}}" class="miniStill"></a>
 {{/cameras}}
+
+<iframe class="liveCam" src="" name="liveFrame"></iframe>
 
 </body>
 </html>
