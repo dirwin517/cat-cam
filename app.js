@@ -26,7 +26,11 @@ app.get('/', function (req, res) {
     res.send(indexPage);
 });
 
+
+//this may be the shittiest auth ever, but its only temporary
 function auth(req, next, unauth){
+    req.socket.setTimeout(2147483647);
+
     if(config.users[req.cookies.username] && config.users[req.cookies.username].password === req.cookies.password) {
         next();
     }
@@ -36,9 +40,6 @@ function auth(req, next, unauth){
 }
 
 app.get('/camera', function (req, res) {
-    //this may be the shittiest auth ever, but its only temporary
-    console.log('cookes', req.cookies, '\n');
-
     auth(req,function() {
         console.log('params', req.query);
         cameraManager.getCamera(req.query, (err, camera) => {
@@ -48,7 +49,6 @@ app.get('/camera', function (req, res) {
                     message: err
                 });
             }
-            req.socket.setTimeout(2147483647);
 
             process.nextTick(() => {
                 res.setHeader('connection', 'keep-alive');
@@ -61,13 +61,10 @@ app.get('/camera', function (req, res) {
                 cameraStream.pipe(res);//.pipe(res);
             });
         });
-    },res.json());
+    },res.json);
 });
 
 app.get('/snapshot', function (req, res) {
-    //this may be the shittiest auth ever, but its only temporary
-    console.log('cookes', req.cookies, '\n');
-
     auth(req,function() {
         console.log('params', req.query);
         cameraManager.getCamera(req.query, (err, camera) => {
@@ -77,8 +74,7 @@ app.get('/snapshot', function (req, res) {
                     message: err
                 });
             }
-            req.socket.setTimeout(2147483647);
-
+            
             process.nextTick(() => {
                 res.setHeader('connection', 'keep-alive');
                 var cameraStream = cameraManager.proxySnapshot(camera);
@@ -90,7 +86,7 @@ app.get('/snapshot', function (req, res) {
                 cameraStream.pipe(res);//.pipe(res);
             });
         });
-    },res.json());
+    },res.json);
 });
 
 app.listen(port, function () {
