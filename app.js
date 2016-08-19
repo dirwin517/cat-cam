@@ -18,11 +18,20 @@ process.on('uncaughtException', function (err) {
 });
 
 app.get('/', function (req, res) {
+
+    var query = req.query;
+    if(query && query.username && query.password){
+        res.cookie('username', query.username);
+        res.cookie('password', query.password);
+    }
+
     console.log('got root page!');
     var Mustache = require('mustache');
     var fs = require('fs');
     var template = fs.readFileSync('./public/cameras.mustache', 'utf8');
-    var indexPage = Mustache.render(template, { cameras : cameras });
+    var indexPage = Mustache.render(template, {
+        cameras : cameras
+    });
     res.send(indexPage);
 });
 
@@ -74,7 +83,7 @@ app.get('/snapshot', function (req, res) {
                     message: err
                 });
             }
-            
+
             process.nextTick(() => {
                 res.setHeader('connection', 'keep-alive');
                 var cameraStream = cameraManager.proxySnapshot(camera);
