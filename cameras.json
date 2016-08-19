@@ -47,7 +47,13 @@
     "password" : "admin",
     "video" : "/video.cgi?resolution=VGA",
     "audio" : "/audio.cgi",
-    "snapshot" : "/snapshot.cgi"
+    "snapshot" : "/snapshot.cgi",
+    "ptz" : {
+      "left"  : "/ptzctrl.cgi?step=0&act=left&speed=5",
+      "right" : "/ptzctrl.cgi?step=0&act=right&speed=5",
+      "up"    : "/ptzctrl.cgi?step=0&act=up&speed=5",
+      "down"  : "/ptzctrl.cgi?step=0&act=down&speed=5"
+    }
   },
   {
     "name" : "diningroom",
@@ -57,6 +63,12 @@
     "password" : "admin",
     "video" : "/video.cgi?resolution=VGA",
     "audio" : "/audio.cgi",
-    "snapshot" : "/snapshot.cgi"
+    "snapshot" : "/snapshot.cgi",
+    "ptz" : {
+      "left"  : "/ptzctrl.cgi?step=0&act=left&speed=5",
+      "right" : "/ptzctrl.cgi?step=0&act=right&speed=5",
+      "up"    : "/ptzctrl.cgi?step=0&act=up&speed=5",
+      "down"  : "/ptzctrl.cgi?step=0&act=down&speed=5"
+    }
   }
 ]

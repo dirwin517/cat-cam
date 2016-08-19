@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style type="text/css">
+
+    </style>
+
+</head>
+
+<body>
+
+{{#camera}}
+    <img target="_blank" src="camera?name={{name}}">
+
+
+<div class="controls">
+
+    <table>
+        <tr>
+            <td></td>
+            <td><a href="{{ptz.up}}" target="iframe_a">Up</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><a href="{{ptz.left}}" target="iframe_a">Left</a></td>
+            <td></td>
+            <td><a href="{{ptz.right}}" target="iframe_a">Right</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><a href="{{ptz.down}}" target="iframe_a">Down</a></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <iframe src="" name="iframe_a" hidden></iframe>
+</div>
+{{/camera}}
+
+</body>
+</html>

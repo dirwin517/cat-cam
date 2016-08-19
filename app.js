@@ -28,12 +28,41 @@ app.get('/', function (req, res) {
     console.log('got root page!');
     var Mustache = require('mustache');
     var fs = require('fs');
-    var template = fs.readFileSync('./public/cameras.mustache', 'utf8');
-    var indexPage = Mustache.render(template, {
-        cameras : cameras
-    });
-    res.send(indexPage);
+    var template;
+    var indexPage;
+
+        template = fs.readFileSync('./public/cameras.mustache', 'utf8');
+        indexPage = Mustache.render(template, {
+            cameras : cameras
+        });
+
+        res.send(indexPage);
+
 });
+
+
+
+app.get('/single', function (req, res) {
+
+    var query = req.query;
+
+    console.log('got camera page!');
+    var Mustache = require('mustache');
+    var fs = require('fs');
+
+    if(query && query.camera){
+        var template = fs.readFileSync('./public/camera.mustache', 'utf8');
+        return cameraManager.getCamera(req.query, (err, camera) => {
+            var indexPage = Mustache.render(template, {
+                camera : camera
+            });
+
+            res.send(indexPage);
+        });
+    }
+    res.send(null);
+});
+
 
 
 //this may be the shittiest auth ever, but its only temporary
