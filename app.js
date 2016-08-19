@@ -44,26 +44,16 @@ app.get('/', function (req, res) {
 
 
 app.get('/single', function (req, res) {
-
-    var query = req.query;
-
     console.log('got camera page!');
-
-    if(query && query.camera){
-        var template = fs.readFileSync('./public/camera.mustache', 'utf8');
-        cameraManager.getCamera(req.query, (err, camera) => {
-            console.log('err', err, 'camera', camera);
-            var indexPage = Mustache.render(template, {
-                camera : camera
-            });
-
-            res.send(indexPage);
+    var template = fs.readFileSync('./public/camera.mustache', 'utf8');
+    cameraManager.getCamera(req.query, (err, camera) => {
+        console.log('err', err, 'camera', camera);
+        var indexPage = Mustache.render(template, {
+            camera : camera
         });
-    }
-    else {
-        res.send(null);
-    }
 
+        res.send(indexPage);
+    });
 });
 
 
