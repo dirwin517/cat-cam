@@ -13,6 +13,9 @@ app.use(cookieParser());
 
 var config = require('./config.json');
 
+var Mustache = require('mustache');
+var fs = require('fs');
+
 process.on('uncaughtException', function (err) {
     console.log('uncaught error ',err);
 });
@@ -26,8 +29,6 @@ app.get('/', function (req, res) {
     }
 
     console.log('got root page!');
-    var Mustache = require('mustache');
-    var fs = require('fs');
     var template;
     var indexPage;
 
@@ -47,8 +48,6 @@ app.get('/single', function (req, res) {
     var query = req.query;
 
     console.log('got camera page!');
-    var Mustache = require('mustache');
-    var fs = require('fs');
 
     if(query && query.camera){
         var template = fs.readFileSync('./public/camera.mustache', 'utf8');
