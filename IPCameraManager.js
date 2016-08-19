@@ -80,7 +80,7 @@ module.exports = function(cameras){
 
         var url = camera.ptz[action];
 
-        return request.get(url, {
+        return request.get('http://' + camera.ip + ':' + camera.port + url, {
             auth : {
                 user : camera.username,
                 pass : camera.password
