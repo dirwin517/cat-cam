@@ -90,7 +90,11 @@ app.get('/camera', function (req, res) {
                     //    err: err
                     //});
                 });
+                res.on('close', function(){
+                   console.log('switched cameras?');
+                });
                 cameraStream.pipe(res);//.pipe(res);
+
             });
         });
     },res.json);
