@@ -47,7 +47,7 @@ app.get('/single', function (req, res) {
     console.log('got camera page!');
     var template = fs.readFileSync('./public/camera.mustache', 'utf8');
     cameraManager.getCamera(req.query, (err, camera) => {
-        console.log('err', err, 'camera', camera);
+        //console.log('err', err, 'camera', camera);
         var indexPage = Mustache.render(template, {
             camera : camera
         });
@@ -60,7 +60,7 @@ app.get('/single', function (req, res) {
 
 //this may be the shittiest auth ever, but its only temporary
 function auth(req, next, unauth){
-    req.socket.setTimeout(2147483647);
+    //req.socket.setTimeout(2147483647);
 
     if(config.users[req.cookies.username] && config.users[req.cookies.username].password === req.cookies.password) {
         next();
@@ -82,10 +82,10 @@ app.get('/camera', function (req, res) {
             }
 
             process.nextTick(() => {
-                res.setHeader('connection', 'keep-alive');
+                //res.setHeader('connection', 'keep-alive');
                 var cameraStream = cameraManager.proxyVideo(camera);
-                cameraStream.on('error', (err) => {
-                    console.log('err', err);
+                cameraStream.on('error', () => {
+                    //console.log('err', err);
                     //res.json({
                     //    err: err
                     //});
@@ -103,7 +103,7 @@ app.get('/camera', function (req, res) {
 app.get('/ptz', function(req, res){
 
     cameraManager.getCamera(req.query, (err, camera) => {
-        console.log('err', err, 'camera', camera);
+        //console.log('err', err, 'camera', camera);
 
         cameraManager.ptz(camera, req.query.action);
 

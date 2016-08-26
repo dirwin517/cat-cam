@@ -61,7 +61,7 @@ module.exports = function(cameras){
     function proxyVideo(camera){
         var url = 'http://' + camera.ip + ':' + camera.port + camera.video;
         if(camera.proxyStream){
-            //return camera.proxyStream;
+            return camera.proxyStream;
         }
         return saveProxyStream(camera, request.get(url, ptzRequestOpts(camera)));
     }
