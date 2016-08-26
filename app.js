@@ -85,9 +85,10 @@ app.get('/camera', function (req, res) {
                 res.setHeader('connection', 'keep-alive');
                 var cameraStream = cameraManager.proxyVideo(camera);
                 cameraStream.on('error', (err) => {
-                    res.json({
-                        err: err
-                    });
+                    console.log('err', err);
+                    //res.json({
+                    //    err: err
+                    //});
                 });
                 cameraStream.pipe(res);//.pipe(res);
             });
