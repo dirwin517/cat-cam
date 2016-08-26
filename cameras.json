@@ -49,10 +49,11 @@
     "audio" : "/audio.cgi",
     "snapshot" : "/snapshot.cgi",
     "ptz" : {
-      "left"  : "/cgi-bin/hi3510/ptzleft.cgi",
-      "right" : "/cgi-bin/hi3510/ptzright.cgi",
-      "up"    : "/cgi-bin/hi3510/ptzup.cgi",
-      "down"  : "/cgi-bin/hi3510/ptzdown.cgi"
+      "stop"  : "/decoder_control.cgi?command=1",
+      "left"  : "/decoder_control.cgi?command=6",
+      "right" : "/decoder_control.cgi?command=4",
+      "up"    : "/decoder_control.cgi?command=0",
+      "down"  : "/decoder_control.cgi?command=2"
     }
   },
   {
@@ -65,10 +66,11 @@
     "audio" : "/audio.cgi",
     "snapshot" : "/snapshot.cgi",
     "ptz" : {
-      "left"  : "/cgi-bin/hi3510/ptzleft.cgi",
-      "right" : "/cgi-bin/hi3510/ptzright.cgi",
-      "up"    : "/cgi-bin/hi3510/ptzup.cgi",
-      "down"  : "/cgi-bin/hi3510/ptzdown.cgi"
+      "stop"  : "/decoder_control.cgi?command=1",
+      "left"  : "/decoder_control.cgi?command=6",
+      "right" : "/decoder_control.cgi?command=4",
+      "up"    : "/decoder_control.cgi?command=0",
+      "down"  : "/decoder_control.cgi?command=2"
     }
   }
 ]
