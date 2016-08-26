@@ -4,6 +4,8 @@
 module.exports = function(cameras){
     var request = require('request');
 
+    //var badCamera = fs.createReadStream( __dirname + '/nocamera.jpg');
+
     function getCamera(cameraFinder, cb){
 
         var theCamera = cameras.filter((camera) => {
@@ -26,68 +28,56 @@ module.exports = function(cameras){
         cb('no camera found');
     }
 
-    function proxyVideo(camera){
-        var basicAuthToke = new Buffer( camera.username + ':' + camera.password).toString('base64');
-        var url = 'http://' + camera.ip + ':' + camera.port + camera.video;
-        console.log('proxying ', url, 'with', basicAuthToke);
-        return request.get(url, {
-            auth : {
-                user : camera.username,
-                pass : camera.password
-            },
-            gzip : true
-        })
-        .on('error', function(err) {
-            console.log('proxy error', err);
-        });
-    }
-
-
-    function proxySnapshot(camera){
-        var basicAuthToke = new Buffer( camera.username + ':' + camera.password).toString('base64');
-        var url = 'http://' + camera.ip + ':' + camera.port + camera.snapshot;
-        console.log('proxying ', url, 'with', basicAuthToke);
-        return request.get(url, {
-            auth : {
-                user : camera.username,
-                pass : camera.password
-            },
-            gzip : true
-        })
+    function saveProxyStream(camera, stream){
+        if(!camera.proxyStream){
+            camera.proxyStream = stream;
+            stream.on('close', function(){
+               camera.proxyStream = null;
+            });
+            stream.on('end', function(){
+                camera.proxyStream = null;
+            })
             .on('error', function(err) {
                 console.log('proxy error', err);
             });
+        }
+        return stream;
     }
 
+    function ptzRequestOpts(camera) {
+        return {
+            auth: {
+                user: camera.username,
+                pass: camera.password
+            },
+            gzip : true
+        };
+    }
+
+    function proxyVideo(camera){
+        var url = 'http://' + camera.ip + ':' + camera.port + camera.video;
+        if(camera.proxyStream){
+            return camera.proxyStream;
+        }
+        return saveProxyStream(camera, request.get(url, ptzRequestOpts(camera)));
+    }
+
+    function proxySnapshot(camera){
+        var url = 'http://' + camera.ip + ':' + camera.port + camera.snapshot;
+        return request.get(url, ptzRequestOpts(camera));
+    }
 
     function proxyAudio(camera){
         //http://192.168.1.108:5182/audio.cgi
-        var basicAuthToke = new Buffer( camera.username + ':' + camera.password).toString('base64');
         var url = 'http://' + camera.ip + ':' + camera.port + camera.audio;
-        console.log('proxying ', url, 'with', basicAuthToke);
-        return request.get(url, {
-            auth : {
-                user : camera.username,
-                pass : camera.password
-            }
-        })
-        .on('error', function(err) {
-            console.log('proxy error', err);
-        });
+        return request.get(url, ptzRequestOpts(camera));
     }
 
     function ptz(camera, action){
 
         var url = camera.ptz[action];
-
-        return request.get('http://' + camera.ip + ':' + camera.port + url, {
-            auth : {
-                user : camera.username,
-                pass : camera.password
-            }
-        }).on('error', function(err) {
-            console.log('ptz error', err);
-        });
+        var requestUrl = 'http://' + camera.ip + ':' + camera.port + url;
+        return request.get(requestUrl, ptzRequestOpts(camera));
     }
 
     return {
