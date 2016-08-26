@@ -6,7 +6,7 @@ var cameras = require('./cameras.json');
 var cameraManager = require('./IPCameraManager')(cameras);
 
 var compression = require('compression');
-app.use(compression());
+app.use(compression({ filter : () => {true} }));
 
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
