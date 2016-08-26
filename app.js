@@ -11,9 +11,9 @@ app.use(compression({ filter : () => {true} }));
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-const zlib = require('zlib');
-
-const gzip = zlib.createGzip();
+//const zlib = require('zlib');
+//
+//const gzip = zlib.createGzip();
 
 var config = require('./config.json');
 
@@ -97,9 +97,9 @@ app.get('/camera', function (req, res) {
                 res.on('close', function(){
                    console.log('switched cameras?');
                 });
-                res.setHeader('Content-Encoding','gzip');
+                //res.setHeader('Content-Encoding','gzip');
 
-                cameraStream.pipe(gzip).pipe(res);//.pipe(res);
+                cameraStream.pipe(res);//.pipe(res);
 
             });
         });
