@@ -38,9 +38,10 @@ module.exports = function(cameras){
                 camera.proxyStream = null;
             });
             stream.on('finish', function(){
-                camera.proxyStream = null
+                camera.proxyStream = null;
             });
             stream.on('error', function(err) {
+                camera.proxyStream = null;
                 console.log('proxy error', err);
             });
         }
