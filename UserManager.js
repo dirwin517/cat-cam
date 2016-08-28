@@ -38,8 +38,12 @@ module.exports = (function(){
                 ip : getUserIp(req),
                 guid : guid,
                 login : new Date().toISOString(),
-                username : req.cookies.username
+                username : req.cookies.username,
+                hits : 0
             };
+        }
+        else {
+            myUsers[guid].hits++
         }
         next();
     }
@@ -54,9 +58,21 @@ module.exports = (function(){
         });
     }
 
+    function userHits(){
+        return Object.keys(myUsers).map((key) => {
+           if(myUsers && myUsers[key]){
+               var result = {};
+               result[myUsers[key].username] = myUsers[key].hits;
+               return result;
+           }
+            return '';
+        });
+    }
+
     return {
         middleware : middleware,
-        getUsers : getUsers
+        getUsers : getUsers,
+        userHits : userHits
     }
 
 })();

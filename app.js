@@ -61,7 +61,11 @@ app.get('/single', function (req, res) {
 });
 
 app.get('/users', function(req, res){
-   res.json(userManager.getUsers());
+    res.json(userManager.getUsers());
+});
+
+app.get('/hits', function(req, res){
+    res.json(userManager.userHits());
 });
 
 
