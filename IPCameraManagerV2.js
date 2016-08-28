@@ -32,15 +32,15 @@ module.exports = function(cameras){
 
     function saveProxyStream(camera, stream){
         if(!camera.proxyStream){
-            function restartProxy(){
-                camera.proxyStream = proxyVideo(camera);
-            }
-
-            camera.proxyStream = stream;
-            stream.on('close',  restartProxy);
-            stream.on('end',    restartProxy);
-            stream.on('finish', restartProxy);
-            stream.on('error',  restartProxy);
+            //function restartProxy(){
+            //    camera.proxyStream = proxyVideo(camera);
+            //}
+            //
+            //camera.proxyStream = stream;
+            //stream.on('close',  restartProxy);
+            //stream.on('end',    restartProxy);
+            //stream.on('finish', restartProxy);
+            //stream.on('error',  restartProxy);
         }
         return stream;
     }
