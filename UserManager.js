@@ -18,15 +18,16 @@ module.exports = (function(){
     }
 
     function middleware(req, res, next){
-        if(!req.cookies.username){
-            res.statusCode(400);
+        var username = req.cookies.username || req.query.username;
+        if(username){
+            res.code(400);
             return res.send('must include username');
         }
 
         var guid;
         if(!req.cookies['cat-cam']){
             var epochNow = new Date().getTime().toString();
-            guid = getUserIp(req) + '.' + req.cookies.username + '.' + toBase64(epochNow);
+            guid = getUserIp(req) + '.' + username + '.' + toBase64(epochNow);
             res.cookie('cat-cam', guid);
         }
         else {
@@ -38,7 +39,7 @@ module.exports = (function(){
                 ip : getUserIp(req),
                 guid : guid,
                 login : new Date().toISOString(),
-                username : req.cookies.username,
+                username : username,
                 hits : 0
             };
         }
