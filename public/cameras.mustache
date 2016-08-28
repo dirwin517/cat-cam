@@ -18,6 +18,14 @@
 </head>
 
 <body>
+<script type="application/javascript">
+    var query = window.location.search.substring(1).split(/=|\?/);
+    var indexOfUsername = query.indexOf('username');
+
+    if(indexOfUsername > -1){
+        document.cookie = 'username='+query[indexOfUsername+1]+';';
+    }
+</script>
 
 {{#cameras}}
       <a target="liveFrame" href="/single?name={{name}}"><img src="snapshot?name={{name}}" class="miniStill"></a>

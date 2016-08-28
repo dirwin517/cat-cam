@@ -11,9 +11,9 @@ app.use(compression({ filter : () => {true} }));
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-//const zlib = require('zlib');
-//
-//const gzip = zlib.createGzip();
+var userManager = require('./UserManager');
+
+app.use(userManager.middleware);
 
 var config = require('./config.json');
 
@@ -58,6 +58,10 @@ app.get('/single', function (req, res) {
 
         res.send(indexPage);
     });
+});
+
+app.get('/users', function(req, res){
+   res.json(userManager.getUsers());
 });
 
 
