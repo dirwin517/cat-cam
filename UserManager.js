@@ -17,7 +17,7 @@ module.exports = (function(){
         return new Buffer(input, 'base64').toString('utf8');
     }
 
-    function middleware(req, res){
+    function middleware(req, res, next){
         if(!req.cookies.username){
             res.statusCode(400);
             return res.send('must include username');
@@ -41,6 +41,7 @@ module.exports = (function(){
                 username : req.cookies.username
             };
         }
+        next();
     }
 
 
