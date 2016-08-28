@@ -27,7 +27,7 @@ module.exports = (function(){
         if(!req.cookies['cat-cam']){
             var epochNow = new Date().getTime().toString();
             guid = getUserIp(req) + toBase64(epochNow);
-            res.cookies('cat-cam', guid);
+            res.cookie('cat-cam', guid);
         }
         else {
             guid = req.cookies['cat-cam'];
