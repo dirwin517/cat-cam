@@ -17,22 +17,21 @@ module.exports = (function(){
         return new Buffer(input, 'base64').toSource('utf8');
     }
 
-    function userGUID(req, res){
-        return (getUserIp(req) + (req.cookies['cat-cam'] || res.cookies['cat-cam']));
-    }
-
     function middleware(req, res){
         if(!req.cookies.username){
             res.statusCode(400);
             return res.send('must include username');
         }
 
-        if(!res.cookies['cat-cam']){
+        var guid;
+        if(!req.cookies['cat-cam']){
             var epochNow = new Date().getTime().toString();
-            res.cookies['cat-cam'] = toBase64(epochNow);
+            guid = getUserIp(req) + toBase64(epochNow);
+            res.cookies('cat-cam', guid);
         }
-
-        var guid = userGUID(req, res);
+        else {
+            guid = req.cookies['cat-cam'];
+        }
 
         if(!myUsers[guid]){
             myUsers[guid] = {
