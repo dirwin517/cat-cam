@@ -10,11 +10,11 @@ module.exports = (function(){
     }
 
     function toBase64(input) {
-        return new Buffer(input, 'utf8').toSource('base64');
+        return new Buffer(input, 'utf8').toString('base64');
     }
 
     function toUtf8(input) {
-        return new Buffer(input, 'base64').toSource('utf8');
+        return new Buffer(input, 'base64').toString('utf8');
     }
 
     function middleware(req, res){
