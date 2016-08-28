@@ -26,7 +26,7 @@ module.exports = (function(){
         var guid;
         if(!req.cookies['cat-cam']){
             var epochNow = new Date().getTime().toString();
-            guid = getUserIp(req) + toBase64(epochNow);
+            guid = getUserIp(req) + '.' + req.cookies.username + '.' + toBase64(epochNow);
             res.cookie('cat-cam', guid);
         }
         else {
@@ -48,7 +48,7 @@ module.exports = (function(){
     function getUsers(){
         return Object.keys(myUsers).map((key) =>{
             if(myUsers && myUsers[key]) {
-                return myUsers[key].username;
+                return myUsers[key].guid;
             }
             return 'unknown';
         });
