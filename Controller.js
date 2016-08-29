@@ -121,11 +121,6 @@ module.exports = function(opts){
                 process.nextTick(() => {
                     res.setHeader('connection', 'keep-alive');
                     var cameraStream = cameraManager.proxySnapshot(camera, res);
-                    cameraStream.on('error', (err) => {
-                        res.json({
-                            err: err
-                        });
-                    });
                     //cameraStream.pipe(res);//.pipe(res);
                 });
             });
