@@ -13,7 +13,9 @@ var userManager = require('./UserManager');
 
 app.use(userManager.middleware);
 
-var Controller = require('./Controller');
+var Controller = require('./Controller')({
+    userManager : userManager
+});
 
 process.on('uncaughtException', function (err) {
     console.log('uncaught error ',err);

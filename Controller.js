@@ -1,7 +1,7 @@
 /**
  * Created by daniel.irwin on 8/27/16.
  */
-module.exports = (function(){
+module.exports = function(opts){
 
     var config = require('./config.json');
 
@@ -17,12 +17,12 @@ module.exports = (function(){
     function auth(req, next, unauth){
         //req.socket.setTimeout(2147483647);
 
-        if(config.users[req.cookies.username] && config.users[req.cookies.username].password === req.cookies.password) {
+        //if(config.users[req.cookies.username] && config.users[req.cookies.username].password === req.cookies.password) {
             next();
-        }
-        else {
-            unauth({ message : 'unauthorized'});
-        }
+        //}
+        //else {
+        //    unauth({ message : 'unauthorized'});
+        //}
     }
 
 
@@ -60,11 +60,11 @@ module.exports = (function(){
         });
     }
     function users(req, res){
-        res.json(userManager.getUsers());
+        res.json(opts.userManager.getUsers());
     }
 
     function hits(req, res){
-        res.json(userManager.userHits());
+        res.json(opts.userManager.userHits());
     }
 
     function camera(req, res) {
@@ -143,4 +143,4 @@ module.exports = (function(){
         '/snapshot' : snapshot
     };
 
-})();
+};

@@ -19,10 +19,10 @@ module.exports = (function(){
 
     function middleware(req, res, next){
         var username = req.cookies.username || req.query.username;
-        if(!username){
-            res.status(400);
-            return res.send('must include username');
-        }
+        //if(!username){
+        //    res.status(400);
+        //    return res.send('must include username');
+        //}
 
         var guid;
         if(!req.cookies['cat-cam']){
