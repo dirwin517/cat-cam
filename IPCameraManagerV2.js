@@ -89,14 +89,18 @@ module.exports = function(cameras){
             host : camera.ip,
             port : camera.port,
             headers : ptzRequestOpts(camera).headers
+        }, function cb(response){
+
+            response.on('response', function (proxyResponse) {
+                var end = new Date().getTime();
+                console.log('diff', end-start);
+
+                proxyResponse.pipe(res);
+            });
+
         });
 
-        proxy.on('response', function (proxyResponse) {
-            var end = new Date().getTime();
-            console.log('diff', end-start);
 
-            proxyResponse.pipe(res);
-        });
 
         //return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), handleResponse);
     }
