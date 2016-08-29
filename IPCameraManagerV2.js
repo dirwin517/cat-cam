@@ -83,7 +83,7 @@ module.exports = function(cameras){
     function proxySnapshot(camera, res){
         var start = new Date().getTime();
 
-        var proxy = http.proxy.request({
+        var proxy = http.request({
             method : 'GET',
             path : camera.snapshot,
             host : camera.ip,
@@ -91,7 +91,7 @@ module.exports = function(cameras){
             headers : ptzRequestOpts(camera).headers
         });
 
-        proxyRequest.on('response', function (proxyResponse) {
+        proxy.on('response', function (proxyResponse) {
             var end = new Date().getTime();
             console.log('diff', end-start);
 
