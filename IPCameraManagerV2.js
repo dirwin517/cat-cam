@@ -100,6 +100,7 @@ module.exports = function(cameras){
             });
 
         });
+        proxy.end();
 
         //return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), handleResponse);
     }
