@@ -46,12 +46,16 @@ module.exports = function(cameras){
     }
 
     function ptzRequestOpts(camera) {
+        var basicAuth = 'Basic ' + (new Buffer(camera.username + ':' + camera.password, 'utf8')).toString('base64');
+        console.log('basicAuth', basicAuth);
         return {
-            auth: {
-                user: camera.username,
-                pass: camera.password
-            },
-            gzip : true
+            headers : {
+                Authorization : basicAuth
+            }
+            //auth: {
+            //    user: camera.username,
+            //    pass: camera.password
+            //}
         };
     }
 
