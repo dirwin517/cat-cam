@@ -80,15 +80,15 @@ module.exports = function(cameras){
 
     var http = require('http');
 
-    function proxySnapshot(camera){
+    function proxySnapshot(camera, res){
         var start = new Date().getTime();
 
-        function handleResponse(err, resp, body) {
-            if(err){
-                return;
-            }
+        function handleResponse(response) {
             var end = new Date().getTime();
             console.log('diff', end-start);
+
+
+            return response.pipe(res, {end : true});
         }
 
         var request = {
@@ -99,7 +99,7 @@ module.exports = function(cameras){
             headers: ptzRequestOpts(camera).headers
         };
         console.log('request', request);
-        return http.request(request, handleResponse);
+        http.request(request, handleResponse);
 
         //return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), handleResponse);
     }
