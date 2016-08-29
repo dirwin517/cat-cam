@@ -90,17 +90,16 @@ module.exports = function(cameras){
             port : camera.port,
             headers : ptzRequestOpts(camera).headers
         }, function cb(response){
+            var end = new Date().getTime();
+            console.log('firstbyte', end-start);
 
-            response.on('response', function (proxyResponse) {
+            response.pipe(res);
+            response.on('end', function () {
                 var end = new Date().getTime();
-                console.log('diff', end-start);
-
-                proxyResponse.pipe(res);
+                console.log('total', end-start);
             });
 
         });
-
-
 
         //return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), handleResponse);
     }
