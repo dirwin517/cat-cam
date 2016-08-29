@@ -79,7 +79,14 @@ module.exports = function(cameras){
     }
 
     function proxySnapshot(camera){
-        return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera));
+        var start = new Date().getTime();
+        return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), (err, resp, body) => {
+            if(err){
+                return;
+            }
+            var end = new Date().getTime();
+            console.log('diff', end-start);
+        });
     }
 
     function proxyAudio(camera){
