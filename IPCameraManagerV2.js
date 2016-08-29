@@ -83,7 +83,7 @@ module.exports = function(cameras){
     function proxySnapshot(camera){
         var start = new Date().getTime();
 
-        function handleResponse(err, resp, body) => {
+        function handleResponse(err, resp, body) {
             if(err){
                 return;
             }
