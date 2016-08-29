@@ -91,13 +91,15 @@ module.exports = function(cameras){
             console.log('diff', end-start);
         }
 
-        return http.request({
-            method : 'GET',
-            host : camera.ip,
-            port : camera.port,
-            path : camera.snapshot,
-            headers : ptzRequestOpts(camera).headers
-        }, handleResponse);
+        var request = {
+            method: 'GET',
+            host: camera.ip,
+            port: camera.port,
+            path: camera.snapshot,
+            headers: ptzRequestOpts(camera).headers
+        };
+        console.log('request', request);
+        return http.request(request, handleResponse);
 
         //return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), handleResponse);
     }
