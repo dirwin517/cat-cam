@@ -99,11 +99,12 @@ module.exports = function(cameras){
             headers: ptzRequestOpts(camera).headers
         };
         console.log('request', request);
-        http.request(request, handleResponse).on('error', (err) => {
+        var req = http.request(request, handleResponse).on('error', (err) => {
             res.json({
                 err: err
             });
-        });;
+        });
+        req.end();
 
         //return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), handleResponse);
     }
