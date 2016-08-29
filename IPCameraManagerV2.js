@@ -83,28 +83,15 @@ module.exports = function(cameras){
     function proxySnapshot(camera, res){
         var start = new Date().getTime();
 
-        function handleResponse(response) {
+        var proxy = http.createClient(camera.port, camera.ip);
+        var proxyRequest = proxy.request('GET', camera.snapshot, ptzRequestOpts(camera).headers);
+
+        proxyRequest.on('response', function (proxyResponse) {
             var end = new Date().getTime();
             console.log('diff', end-start);
 
-
-            return response.pipe(res, {end : true});
-        }
-
-        var request = {
-            method: 'GET',
-            host: camera.ip,
-            port: camera.port,
-            path: camera.snapshot,
-            headers: ptzRequestOpts(camera).headers
-        };
-        console.log('request', request);
-        var req = http.request(request, handleResponse).on('error', (err) => {
-            res.json({
-                err: err
-            });
+            proxyResponse.pipe(res);
         });
-        req.end();
 
         //return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), handleResponse);
     }
