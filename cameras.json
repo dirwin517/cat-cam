@@ -72,5 +72,39 @@
       "up"    : "/decoder_control.cgi?command=0",
       "down"  : "/decoder_control.cgi?command=2"
     }
+  },
+  {
+    "name" : "futon",
+    "ip" : "192.168.0.109",
+    "port" : 80,
+    "username" : "admin",
+    "password" : "123456",
+    "video" : "/video.cgi?resolution=VGA",
+    "audio" : "/audio.cgi",
+    "snapshot" : "/snapshot.cgi",
+    "ptz" : {
+      "stop"  : "/decoder_control.cgi?command=1",
+      "left"  : "/decoder_control.cgi?command=6",
+      "right" : "/decoder_control.cgi?command=4",
+      "up"    : "/decoder_control.cgi?command=0",
+      "down"  : "/decoder_control.cgi?command=2"
+    }
+  },
+  {
+    "name" : "bed",
+    "ip" : "192.168.0.102",
+    "port" : 80,
+    "username" : "admin",
+    "password" : "123456",
+    "video" : "/video.cgi?resolution=VGA",
+    "audio" : "/audio.cgi",
+    "snapshot" : "/snapshot.cgi",
+    "ptz" : {
+      "stop"  : "/decoder_control.cgi?command=1",
+      "left"  : "/decoder_control.cgi?command=6",
+      "right" : "/decoder_control.cgi?command=4",
+      "up"    : "/decoder_control.cgi?command=0",
+      "down"  : "/decoder_control.cgi?command=2"
+    }
   }
 ]
