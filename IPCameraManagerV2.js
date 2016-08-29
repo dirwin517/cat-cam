@@ -78,15 +78,28 @@ module.exports = function(cameras){
         return request.get(url, ptzRequestOpts(camera));
     }
 
+    var http = require('http');
+
     function proxySnapshot(camera){
         var start = new Date().getTime();
-        return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), (err, resp, body) => {
+
+        function handleResponse(err, resp, body) => {
             if(err){
                 return;
             }
             var end = new Date().getTime();
             console.log('diff', end-start);
-        });
+        }
+
+        return http.request({
+            method : 'GET',
+            host : camera.ip,
+            port : camera.port,
+            path : camera.snapshot,
+            headers : ptzRequestOpts(camera).headers
+        }, handleResponse);
+
+        //return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), handleResponse);
     }
 
     function proxyAudio(camera){
