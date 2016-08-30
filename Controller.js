@@ -85,25 +85,25 @@ module.exports = function(opts){
 
                 process.nextTick(() => {
                     //res.setHeader('connection', 'keep-alive');
-                    if(!proxyCameras[camera.name]){
-                        proxyCameras[camera.name] = new MjpegProxy('http://'+camera.username+':'+camera.password+'@' + camera.ip + camera.video).proxyRequest;
-                    }
-
-                    proxyCameras[camera.name](req, res, next);
-
-                    //var cameraStream = cameraManager.proxyVideo(camera);
-                    //cameraStream.on('error', () => {
-                    //    //console.log('err', err);
-                    //    //res.json({
-                    //    //    err: err
-                    //    //});
-                    //});
-                    //res.on('close', function(){
-                    //    console.log('switched cameras?');
-                    //});
-                    ////res.setHeader('Content-Encoding','gzip');
+                    //if(!proxyCameras[camera.name]){
+                    //    proxyCameras[camera.name] = new MjpegProxy('http://'+camera.username+':'+camera.password+'@' + camera.ip + camera.video).proxyRequest;
+                    //}
                     //
-                    //cameraStream.pipe(res);//.pipe(res);
+                    //proxyCameras[camera.name](req, res, next);
+
+                    var cameraStream = cameraManager.proxyVideo(camera);
+                    cameraStream.on('error', () => {
+                        //console.log('err', err);
+                        //res.json({
+                        //    err: err
+                        //});
+                    });
+                    res.on('close', function(){
+                        console.log('switched cameras?');
+                    });
+                    //res.setHeader('Content-Encoding','gzip');
+
+                    cameraStream.pipe(res);//.pipe(res);
 
                 });
             });
