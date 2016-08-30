@@ -88,7 +88,9 @@ module.exports = function(cameras){
             path : camera.snapshot,
             host : camera.ip,
             port : camera.port,
-            headers : ptzRequestOpts(camera).headers
+            headers : {
+                Authorization:  'Basic ' + (new Buffer(camera.username + ':' + camera.password, 'utf8')).toString('base64')
+            }
         }, function cb(response){
             var end = new Date().getTime();
             console.log('firstbyte', end-start);
@@ -100,6 +102,11 @@ module.exports = function(cameras){
             });
 
         });
+
+        proxy.on('error', function(err){
+            console.log('err', err);
+        });
+
         proxy.end();
 
         //return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), handleResponse);
