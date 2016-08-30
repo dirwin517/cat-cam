@@ -11,6 +11,9 @@ module.exports = function(opts){
     var cameras = require('./cameras.json');
     var cameraManager = require('./IPCameraManagerV2')(cameras);
 
+    var proxyCameras = {
+
+    };
 
 
     //this may be the shittiest auth ever, but its only temporary
@@ -67,7 +70,9 @@ module.exports = function(opts){
         res.json(opts.userManager.userHits());
     }
 
-    function camera(req, res) {
+    var MjpegProxy = require('mjpeg-proxy').MjpegProxy;
+
+    function camera(req, res, next) {
         auth(req,function() {
             console.log('params', req.query);
             cameraManager.getCamera(req.query, (err, camera) => {
@@ -80,19 +85,25 @@ module.exports = function(opts){
 
                 process.nextTick(() => {
                     //res.setHeader('connection', 'keep-alive');
-                    var cameraStream = cameraManager.proxyVideo(camera);
-                    cameraStream.on('error', () => {
-                        //console.log('err', err);
-                        //res.json({
-                        //    err: err
-                        //});
-                    });
-                    res.on('close', function(){
-                        console.log('switched cameras?');
-                    });
-                    //res.setHeader('Content-Encoding','gzip');
+                    if(!proxyCameras[camera.name]){
+                        proxyCameras[camera.name] = new MjpegProxy('http://'+camera.username+':'+camera.password+'@' + camera.ip + camera.video).proxyRequest;
+                    }
 
-                    cameraStream.pipe(res);//.pipe(res);
+                    proxyCameras[camera.name](req, res, next);
+
+                    //var cameraStream = cameraManager.proxyVideo(camera);
+                    //cameraStream.on('error', () => {
+                    //    //console.log('err', err);
+                    //    //res.json({
+                    //    //    err: err
+                    //    //});
+                    //});
+                    //res.on('close', function(){
+                    //    console.log('switched cameras?');
+                    //});
+                    ////res.setHeader('Content-Encoding','gzip');
+                    //
+                    //cameraStream.pipe(res);//.pipe(res);
 
                 });
             });

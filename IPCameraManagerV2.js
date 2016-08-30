@@ -86,12 +86,12 @@ module.exports = function(cameras){
         var proxy = request(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), function cb(err, response){
             var end = new Date().getTime();
             console.log('firstbyte', end-start);
+        });
 
-            response.on('end', function () {
-                var end = new Date().getTime();
-                console.log('total', end-start);
-            });
 
+        proxy.on('end', function () {
+            var end = new Date().getTime();
+            console.log('total', end-start);
         });
 
         proxy.pipe(res);
