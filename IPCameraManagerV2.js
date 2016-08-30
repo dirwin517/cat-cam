@@ -83,7 +83,7 @@ module.exports = function(cameras){
     function proxySnapshot(camera, res){
         var start = new Date().getTime();
 
-        var proxy = request(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), function cb(response){
+        var proxy = request(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), function cb(err, response){
             var end = new Date().getTime();
             console.log('firstbyte', end-start);
 
