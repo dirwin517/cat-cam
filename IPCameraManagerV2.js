@@ -78,16 +78,14 @@ module.exports = function(cameras){
         return request.get(url, ptzRequestOpts(camera));
     }
 
-    var http = require('http');
+
 
     function proxySnapshot(camera, res){
         var start = new Date().getTime();
 
-        var proxy = http.request({
+        var proxy = request({
             method : 'GET',
-            path : camera.snapshot,
-            host : camera.ip,
-            port : camera.port,
+            url : calcBaseUrl(camera) + camera.snapshot,
             headers : {
                 Authorization:  'Basic ' + (new Buffer(camera.username + ':' + camera.password, 'utf8')).toString('base64')
             }
@@ -107,7 +105,7 @@ module.exports = function(cameras){
             console.log('err', err);
         });
 
-        proxy.end();
+        //proxy.end();
 
         //return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), handleResponse);
     }
