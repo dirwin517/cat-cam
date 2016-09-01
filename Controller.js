@@ -158,14 +158,11 @@ module.exports = function(opts){
 
             paths: ['/system.cgi', '/get_status.cgi'], // optional to have it hit a specific endpoint
 
-            headers: {}, // include the following headers in all request so you can do auth or something,
+            headers: {
+                Authorization:  'Basic ' + (new Buffer('admin' + ':' + 'admin', 'utf8')).toString('base64')
+            }, // include the following headers in all request so you can do auth or something,
 
-            timeout: 10000, //10 seconds timeout)
-
-            auth : {
-                    user: 'admin',
-                    pass: 'admin'
-            }
+            timeout: 10000 //10 seconds timeout)
 
             //ignoreResponse : true
         }, function(results){
