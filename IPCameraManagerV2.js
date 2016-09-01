@@ -49,8 +49,8 @@ module.exports = function(cameras){
         var basicAuth = 'Basic ' + (new Buffer(camera.username + ':' + camera.password, 'utf8')).toString('base64');
         console.log('basicAuth', basicAuth);
         return {
-            //pool : false,
-            //agent : false,
+            pool : false,
+            agent : false,
             timeout : 25000,
             forever : true,
             headers : {
