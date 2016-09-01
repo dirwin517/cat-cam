@@ -47,7 +47,7 @@ module.exports = function(opts){
 
         addUser();
 
-        res.on('close', function(){
+        res.on('end', function(){
            removeUser();
         });
 
