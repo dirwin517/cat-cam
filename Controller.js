@@ -156,7 +156,7 @@ module.exports = function(opts){
 
             errors : [],
 
-            paths: ['system.cgi', 'get_status.cgi'], // optional to have it hit a specific endpoint
+            paths: ['/system.cgi', '/get_status.cgi'], // optional to have it hit a specific endpoint
 
             headers: {}, // include the following headers in all request so you can do auth or something,
 
