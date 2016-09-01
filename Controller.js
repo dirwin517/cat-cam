@@ -170,7 +170,8 @@ module.exports = function(opts){
                 }
             });
 
-            camera.body = newBody.CameraName || newBody.alias;
+            camera.alias = newBody.CameraName || newBody.alias;
+            delete camera.body;
 
         });
 
