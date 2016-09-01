@@ -23,6 +23,7 @@
     "jimp": "^0.2.27",
     "mjpeg-proxy": "^0.2.0",
     "mustache": "^2.2.1",
+    "netscan": "^1.0.0",
     "request": "^2.74.0"
   }
 }

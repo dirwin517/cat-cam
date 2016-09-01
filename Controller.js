@@ -138,6 +138,33 @@ module.exports = function(opts){
         },res.json);
     }
 
+    function ipscan(req, res){
+        netscan.scan({
+
+            protocol : ['http'],
+
+            octet0: [192],
+            octet1: [168],
+            octet2: [0],
+            octet3: [{min: 100, max: 126}], //range of 7 to 10 inclusive
+
+            ports: [80],
+
+            codes: [200, 201, 202, 400, 401, 402, 403], //only count it if a 200 comes back,
+
+            errors : [],
+
+            paths: '/', // optional to have it hit a specific endpoint
+
+            headers: {}, // include the following headers in all request so you can do auth or something,
+
+            timeout: 10000, //10 seconds timeout)
+
+            ignoreResponse : true
+        }, function(results){
+            res.json(results);
+        });
+    }
 
     return {
         '/' : rootPage,
@@ -146,7 +173,8 @@ module.exports = function(opts){
         '/hits' : hits,
         '/ptz' : ptz,
         '/camera' : camera,
-        '/snapshot' : snapshot
+        '/snapshot' : snapshot,
+        '/scan' : ipscan
     };
 
 };
