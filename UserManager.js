@@ -1,7 +1,28 @@
 /**
  * Created by daniel.irwin on 8/26/16.
  */
-module.exports = (function(){
+module.exports = function(opts){
+
+    var userCounter = 0;
+
+    opts.metrics({
+        name    : 'Realtime user',
+        value   : function() {
+            return userCounter;
+        },
+        alert : {
+            mode     : 'threshold',
+            value    : 500
+        }
+    });
+
+    function addUser(){
+        userCounter++;
+    }
+
+    function removeUser(){
+        userCounter--;
+    }
 
     var myUsers = {};
 
@@ -23,6 +44,12 @@ module.exports = (function(){
         //    res.status(400);
         //    return res.send('must include username');
         //}
+
+        addUser();
+
+        res.on('close', function(){
+           removeUser();
+        });
 
         var guid;
         if(!req.cookies['cat-cam']){
@@ -76,4 +103,4 @@ module.exports = (function(){
         userHits : userHits
     }
 
-})();
+};

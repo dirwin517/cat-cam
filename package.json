@@ -24,6 +24,8 @@
     "mjpeg-proxy": "^0.2.0",
     "mustache": "^2.2.1",
     "netscan": "^1.0.2",
+    "node-microphone": "0.0.2",
+    "pmx": "^0.6.4",
     "request": "^2.74.0"
   }
 }
