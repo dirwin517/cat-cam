@@ -11,6 +11,8 @@ module.exports = function(opts){
     var cameras = require('./cameras.json');
     var cameraManager = require('./IPCameraManagerV2')(cameras);
 
+    var netscan = require('netscan')();
+
     var proxyCameras = {
 
     };
