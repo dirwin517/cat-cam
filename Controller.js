@@ -140,6 +140,43 @@ module.exports = function(opts){
         },res.json);
     }
 
+    function analyze(data){
+
+        function keyValues(camera) {
+            if (camera.uri.indexOf('get_status.cgi') > -1) {
+                return camera.body.split('\n')
+            }
+            else if (camera.uri.indexOf('system.cgi') > -1) {
+                return camera.body.split('\r\n');
+            }
+            return [];
+        }
+
+        function unstring(stringOfString){
+            if(typeof stringOfString !== 'string'){
+                return '';
+            }
+            return stringOfString.replace(/'|"/g,'').replace('var ', '');
+        }
+
+        data.forEach((camera) => {
+            var newBody = {};
+            keyValues(camera).forEach((keyValue) => {
+                var kv = keyValue.split('=');
+                var key = unstring(kv[0]);
+                var value = unstring(kv[1]);
+                if(key && value) {
+                    newBody[key] = value;
+                }
+            });
+
+            camera.body = newBody.CameraName || newBody.alias;
+
+        });
+
+        return data;
+    }
+
     function ipscan(req, res){
         netscan.scan({
 
@@ -166,7 +203,8 @@ module.exports = function(opts){
 
             //ignoreResponse : true
         }, function(results){
-            res.json(results);
+
+            res.json(analyze(results));
         });
     }
 
