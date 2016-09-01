@@ -45,11 +45,13 @@ module.exports = function(cameras){
         return stream;
     }
 
+    var pool = { maxSockets : 15 };
+
     function ptzRequestOpts(camera) {
         var basicAuth = 'Basic ' + (new Buffer(camera.username + ':' + camera.password, 'utf8')).toString('base64');
         console.log('basicAuth', basicAuth);
         return {
-            pool : false,
+            pool : pool,
             agent : false,
             timeout : 25000,
             forever : true,
