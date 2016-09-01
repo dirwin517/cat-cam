@@ -156,13 +156,13 @@ module.exports = function(opts){
 
             errors : [],
 
-            paths: '/', // optional to have it hit a specific endpoint
+            paths: '/param.cgi?cmd=getserverinfo', // optional to have it hit a specific endpoint
 
             headers: {}, // include the following headers in all request so you can do auth or something,
 
             timeout: 10000, //10 seconds timeout)
 
-            ignoreResponse : true
+            //ignoreResponse : true
         }, function(results){
             res.json(results);
         });
