@@ -5,7 +5,7 @@
     "password" : "admin",
     "video" : "/videostream.cgi?resolution=VGA",
     "audio" : "/audio.cgi",
-    "snapshot" : "/snapshot.cgi",
+    "snapshot" : "/snapshot.cgi?resolution=8",
     "ptz" : {
       "stop"  : "/decoder_control.cgi?command=1",
       "left"  : "/decoder_control.cgi?command=6",
