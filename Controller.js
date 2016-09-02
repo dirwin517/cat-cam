@@ -28,7 +28,7 @@ module.exports = function(opts){
                 return newCamera;
             });
 
-            setCameras(cameras);
+            cameraManager.setCameras(cameras);
 
             if(typeof cb === 'function'){
                 cb(cameras);

@@ -66,12 +66,12 @@ module.exports = function(cameras){
     }
 
     function proxyVideoAndSave(camera){
-        return saveProxyStream(camera, proxyVideo(camera));
+        return saveProxyStream(camera, proxyVideo(camera, true));
     }
 
-    function proxyVideo(camera){
+    function proxyVideo(camera, ignoreSavedStream){
         var url = calcBaseUrl(camera) + camera.video;
-        if(camera.proxyStream){
+        if(camera.proxyStream && !ignoreSavedStream){
             return camera.proxyStream;
         }
         return request.get(url, ptzRequestOpts(camera));
@@ -120,12 +120,17 @@ module.exports = function(cameras){
         return request.get(calcBaseUrl(camera) + camera.ptz[action], ptzRequestOpts(camera));
     }
 
-    cameras.forEach((cam) => {
-        loadCamera(cam);
-    });
+    function loadCameras() {
+        cameras.forEach((cam) => {
+            loadCamera(cam);
+        });
+    }
+
+    loadCameras();
 
     function setCameras(input){
         cameras = input;
+        loadCameras();
     }
 
     return {
