@@ -115,11 +115,19 @@ module.exports = function(cameras){
 
         proxy.pipe(buffer);
 
+        var ended = false;
         proxy.on('end', function(){
             res.send(buffer.getContents());
             res.end();
+            ended = true;
             //buffer.pipe(res);
         });
+
+        setTimeout(() => {
+            if(!ended){
+                proxy.end();
+            }
+        }, 25000);
 
         proxy.on('error', function(err){
             console.log('err', err);
