@@ -58,18 +58,11 @@ module.exports = function(cameras){
             headers : {
                 Authorization : basicAuth
             }
-            //auth: {
-            //    user: camera.username,
-            //    pass: camera.password
-            //}
         };
     }
 
     function loadCamera(camera){
         proxyVideoAndSave(camera);
-        //setInterval(function(){
-        //    proxySnapshot(camera);
-        //}, 15000);
     }
 
     function proxyVideoAndSave(camera){
@@ -89,7 +82,19 @@ module.exports = function(cameras){
     function proxySnapshot(camera, res){
         var start = new Date().getTime();
 
-        var proxy = request(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), function cb(err, response){
+        var uri = calcBaseUrl(camera) + camera.snapshot;
+        var reqOpts = ptzRequestOpts(camera);
+
+        console.log('uri', uri, 'reqOpts', reqOpts);
+
+        var proxy = request(uri, reqOpts, function cb(err, response){
+            if(err) {
+                console.log('err', err);
+                return res.json({
+                    err : err
+                });
+            }
+
             var end = new Date().getTime();
             console.log('firstbyte', end-start);
         });
@@ -105,10 +110,6 @@ module.exports = function(cameras){
         proxy.on('error', function(err){
             console.log('err', err);
         });
-
-        //proxy.end();
-
-        //return request.get(calcBaseUrl(camera) + camera.snapshot, ptzRequestOpts(camera), handleResponse);
     }
 
     function proxyAudio(camera){
