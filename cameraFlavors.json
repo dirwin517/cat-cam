@@ -3,7 +3,7 @@
     "port" : 80,
     "username" : "admin",
     "password" : "admin",
-    "video" : "/videostream.cgi?resolution=VGA",
+    "video" : "/videostream.cgi?resolution=32",
     "audio" : "/audio.cgi",
     "snapshot" : "/snapshot.cgi?resolution=8",
     "ptz" : {
