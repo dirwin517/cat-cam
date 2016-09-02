@@ -1,3 +1,14 @@
+var pmx = require('pmx').init({
+    http          : true, // HTTP routes logging (default: false)
+    http_latency  : 500,  // Limit of acceptable latency
+    http_code     : 1000,  // Error code to track'
+    alert_enabled : false,  // Enable alerts (If you add alert subfield in custom it's going to be enabled)
+    ignore_routes : [/socket\.io/, /notFound/], // Ignore http routes with this pattern (default: [])
+    errors        : true, // Exceptions loggin (default: true)
+    custom_probes : true, // Auto expose JS Loop Latency and HTTP req/s as custom metrics (default: true)
+    network       : true, // Network monitoring at the application level (default: false)
+    ports         : true  // Shows which ports your app is listening on (default: false)
+});
 
 var express = require('express');
 var app = express();
