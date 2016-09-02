@@ -28,6 +28,8 @@ module.exports = function(opts){
                 return newCamera;
             });
 
+            setCameras(cameras);
+
             if(typeof cb === 'function'){
                 cb(cameras);
             }

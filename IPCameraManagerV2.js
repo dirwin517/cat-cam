@@ -124,7 +124,12 @@ module.exports = function(cameras){
         loadCamera(cam);
     });
 
+    function setCameras(input){
+        cameras = input;
+    }
+
     return {
+        setCameras : setCameras,
         getCamera : getCamera,
         proxyVideo : proxyVideo,
         proxyAudio: proxyAudio,
