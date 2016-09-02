@@ -7,6 +7,8 @@ module.exports = function(cameras){
     //var Jimp = require('jimp');
     //var badCamera = fs.createReadStream( __dirname + '/nocamera.jpg');
 
+    var buffered = require('buffered-stream');
+
     function calcBaseUrl(camera) {
         return 'http://' + camera.ip + ':' + camera.port;
     }
@@ -74,7 +76,9 @@ module.exports = function(cameras){
         if(camera.proxyStream && !ignoreSavedStream){
             return camera.proxyStream;
         }
-        return request.get(url, ptzRequestOpts(camera));
+
+        var buffer = buffered(128*1024*1024);
+        return request.get(url, ptzRequestOpts(camera)).pipe(buffer);
     }
 
 
@@ -105,7 +109,9 @@ module.exports = function(cameras){
             console.log('total', end-start);
         });
 
-        proxy.pipe(res);
+        var buffer = buffered(128*1024*1024);
+
+        proxy.pipe(buffer).pipe(res);
 
         proxy.on('error', function(err){
             console.log('err', err);
@@ -113,7 +119,8 @@ module.exports = function(cameras){
     }
 
     function proxyAudio(camera){
-        return request.get(calcBaseUrl(camera) + camera.audio, ptzRequestOpts(camera));
+        var buffer = buffered(128*1024*1024);
+        return request.get(calcBaseUrl(camera) + camera.audio, ptzRequestOpts(camera)).pipe(buffer);
     }
 
     function ptz(camera, action){
