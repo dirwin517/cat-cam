@@ -77,8 +77,7 @@ module.exports = function(cameras){
             return camera.proxyStream;
         }
 
-        var buffer = buffered(128*1024*1024);
-        return request.get(url, ptzRequestOpts(camera)).pipe(buffer);
+        return request.get(url, ptzRequestOpts(camera));
     }
 
 
@@ -109,7 +108,7 @@ module.exports = function(cameras){
             console.log('total', end-start);
         });
 
-        var buffer = buffered(128*1024*1024);
+        var buffer = buffered(16*1024*1024);
 
         proxy.pipe(buffer).pipe(res);
 
@@ -119,8 +118,7 @@ module.exports = function(cameras){
     }
 
     function proxyAudio(camera){
-        var buffer = buffered(128*1024*1024);
-        return request.get(calcBaseUrl(camera) + camera.audio, ptzRequestOpts(camera)).pipe(buffer);
+        return request.get(calcBaseUrl(camera) + camera.audio, ptzRequestOpts(camera));
     }
 
     function ptz(camera, action){
