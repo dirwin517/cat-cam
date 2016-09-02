@@ -7,7 +7,7 @@ module.exports = function(cameras){
     //var Jimp = require('jimp');
     //var badCamera = fs.createReadStream( __dirname + '/nocamera.jpg');
 
-    var buffered = require('buffered-stream');
+    var streamBuffers = require('stream-buffers');
 
     function calcBaseUrl(camera) {
         return 'http://' + camera.ip + ':' + camera.port;
@@ -108,9 +108,18 @@ module.exports = function(cameras){
             console.log('total', end-start);
         });
 
-        var buffer = buffered(16*1024*1024);
+        var buffer = new streamBuffers.WritableStreamBuffer({
+            initialSize: (100 * 1024),   // start at 100 kilobytes.
+            incrementAmount: (10 * 1024) // grow by 10 kilobytes each time buffer overflows.
+        });
 
-        proxy.pipe(buffer).pipe(res);
+        proxy.pipe(buffer);
+
+        proxy.on('end', function(){
+            res.send(buffer.getContents());
+            res.end();
+            //buffer.pipe(res);
+        });
 
         proxy.on('error', function(err){
             console.log('err', err);
