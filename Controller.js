@@ -170,6 +170,9 @@ module.exports = function(opts){
         });
     });
 
+    function who(req, res){
+        res.json(cameras);
+    }
 
     return {
         '/' : rootPage,
@@ -179,7 +182,8 @@ module.exports = function(opts){
         '/ptz' : ptz,
         '/camera' : camera,
         '/snapshot' : snapshot,
-        '/scan' : scan
+        '/scan' : scan,
+        '/who' : who
     };
 
 };
