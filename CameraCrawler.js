@@ -10,9 +10,11 @@ module.exports = (function(){
 
         function keyValues(camera) {
             if (camera.uri.indexOf('get_status.cgi') > -1) {
+                camera.type = 'FOSCAM';
                 return camera.body.split('\n')
             }
             else if (camera.uri.indexOf('system.cgi') > -1) {
+                camera.type = 'KEEBOX';
                 return camera.body.split('\r\n');
             }
             return [];
@@ -22,7 +24,7 @@ module.exports = (function(){
             if(typeof stringOfString !== 'string'){
                 return '';
             }
-            return stringOfString.replace(/'|"/g,'').replace('var ', '');
+            return stringOfString.replace(/'|"/g,'').replace('var ', '').replace(';','');
         }
 
         data.forEach((camera) => {
@@ -44,7 +46,7 @@ module.exports = (function(){
         return data;
     }
 
-    function ipscan(req, res){
+    function ipscan(callback){
         netscan.scan({
 
             protocol : ['http'],
@@ -71,7 +73,7 @@ module.exports = (function(){
             //ignoreResponse : true
         }, function(results){
 
-            res.json(analyze(results));
+            callback(analyze(results));
         });
     }
 

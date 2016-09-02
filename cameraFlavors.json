@@ -1,0 +1,25 @@
+{
+  "FOSCAM" : {
+    "port" : 80,
+    "username" : "admin",
+    "password" : "admin",
+    "video" : "/videostream.cgi?resolution=VGA",
+    "audio" : "/audio.cgi",
+    "snapshot" : "/snapshot.cgi",
+    "ptz" : {
+      "stop"  : "/decoder_control.cgi?command=1",
+      "left"  : "/decoder_control.cgi?command=6",
+      "right" : "/decoder_control.cgi?command=4",
+      "up"    : "/decoder_control.cgi?command=0",
+      "down"  : "/decoder_control.cgi?command=2"
+    }
+  },
+  "KEEBOX" : {
+    "port" : 80,
+    "username" : "admin",
+    "password" : "admin",
+    "video" : "/video.cgi?resolution=VGA",
+    "audio" : "/audio.cgi",
+    "snapshot" : "/IMAGE.JPG"
+  }
+}

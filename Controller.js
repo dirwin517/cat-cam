@@ -8,12 +8,33 @@ module.exports = function(opts){
     var Mustache = require('mustache');
     var fs = require('fs');
 
-    var cameras = require('./cameras.json');
+    var cameras = [];
     var cameraManager = require('./IPCameraManagerV2')(cameras);
 
-    var proxyCameras = {
+    var crawler = require('./CameraCrawler');
 
-    };
+    var cameraFlavors = require('./cameraFlavors.json');
+
+    function initCameras(cb){
+
+        crawler.scan((camerasFound) => {
+
+            cameras = camerasFound.map((camera) => {
+                var newCamera = JSON.parse(JSON.stringify(cameraFlavors[camera.type]));
+                newCamera.name = camera.alias;
+                newCamera.ip = camera.ip;
+                newCamera.port = camera.port;
+
+                return newCamera;
+            });
+
+            if(typeof cb === 'function'){
+                cb(cameras);
+            }
+
+        });
+
+    }
 
     //this may be the shittiest auth ever, but its only temporary
     function auth(req, next, unauth){
@@ -137,7 +158,18 @@ module.exports = function(opts){
         },res.json);
     }
 
-    var crawler = require('./CameraCrawler');
+    function scan(req, res){
+        crawler.scan(res.json);
+    }
+
+    initCameras();
+
+    opts.pmxAction('camera:scan', function(reply) {
+        initCameras( (result) => {
+           reply(result);
+        });
+    });
+
 
     return {
         '/' : rootPage,
@@ -147,7 +179,7 @@ module.exports = function(opts){
         '/ptz' : ptz,
         '/camera' : camera,
         '/snapshot' : snapshot,
-        '/scan' : crawler.scan
+        '/scan' : scan
     };
 
 };

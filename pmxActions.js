@@ -3,15 +3,8 @@
  */
 module.exports = (function(){
 
-    //var pmx = require('pmx');
-    //
-    //pmx.action('db:clean', function(reply) {
-    //    clean.db(function() {
-    //        /**
-    //         * reply() must be called at the end of the action
-    //         */
-    //        reply({success : true});
-    //    });
-    //});
+    var pmx = require('pmx');
+
+    return pmx.action;
 
 })();

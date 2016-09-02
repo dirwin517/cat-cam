@@ -3,8 +3,6 @@ var express = require('express');
 var app = express();
 var port = 1337;
 
-var pmxActions = require('./pmxActions');
-
 var compression = require('compression');
 app.use(compression({ filter : () => {true} }));
 
@@ -15,6 +13,8 @@ app.use(cookieParser());
 
 var metrics = require('./metrics');
 
+var pmxActions = require('./pmxActions');
+
 var userManager = require('./UserManager')({
     metrics : metrics
 });
@@ -23,7 +23,8 @@ app.use(userManager.middleware);
 
 var Controller = require('./Controller')({
     userManager : userManager,
-    metrics : metrics
+    metrics : metrics,
+    pmxAction : pmxActions
 });
 
 process.on('uncaughtException', function (err) {
