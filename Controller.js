@@ -90,8 +90,6 @@ module.exports = function(opts){
         res.json(opts.userManager.userHits());
     }
 
-    var MjpegProxy = require('mjpeg-proxy').MjpegProxy;
-
     function camera(req, res, next) {
         auth(req,function() {
             console.log('params', req.query);
@@ -104,26 +102,14 @@ module.exports = function(opts){
                 }
 
                 process.nextTick(() => {
-                    //res.setHeader('connection', 'keep-alive');
-                    //if(!proxyCameras[camera.name]){
-                    //    proxyCameras[camera.name] = new MjpegProxy('http://'+camera.username+':'+camera.password+'@' + camera.ip + camera.video).proxyRequest;
-                    //}
-                    //
-                    //proxyCameras[camera.name](req, res, next);
 
                     var cameraStream = cameraManager.proxyVideo(camera);
-                    cameraStream.on('error', () => {
-                        //console.log('err', err);
-                        //res.json({
-                        //    err: err
-                        //});
-                    });
+
                     res.on('close', function(){
                         console.log('switched cameras?');
                     });
-                    //res.setHeader('Content-Encoding','gzip');
 
-                    cameraStream.pipe(res);//.pipe(res);
+                    cameraStream.pipe(res);
 
                 });
             });
@@ -134,6 +120,11 @@ module.exports = function(opts){
         cameraManager.getCamera(req.query, (err, camera) => {
             //console.log('err', err, 'camera', camera);
             cameraManager.ptz(camera, req.query.action);
+
+            setTimeout(() => {
+                cameraManager.ptz(camera, 'stop');
+            }, 500);
+
             res.send(null);
         });
     }
@@ -159,7 +150,9 @@ module.exports = function(opts){
     }
 
     function scan(req, res){
-        crawler.scan(res.json);
+        crawler.scan((data) => {
+            res.json(data);
+        });
     }
 
     initCameras();
