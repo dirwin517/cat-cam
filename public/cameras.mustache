@@ -28,7 +28,7 @@
 </script>
 
 {{#cameras}}
-      <a target="liveFrame" href="/single?name={{name}}"><img src="snapshot?name={{name}}" class="miniStill"></a>
+      <a target="liveFrame" href="/single?name={{name}}"><img src="snapshot?name={{name}}" class="miniStill">{{name}}</a>
 {{/cameras}}
 
 <iframe class="liveCam" src="" name="liveFrame"></iframe>
