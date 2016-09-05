@@ -54,7 +54,7 @@ module.exports = (function(){
             octet0: [192],
             octet1: [168],
             octet2: [0],
-            octet3: [{min: 100, max: 126}], //range of 7 to 10 inclusive
+            octet3: [{min: 100, max: 130}], //range of 7 to 10 inclusive
 
             ports: [80],
 
@@ -68,7 +68,7 @@ module.exports = (function(){
                 Authorization:  'Basic ' + (new Buffer('admin' + ':' + 'admin', 'utf8')).toString('base64')
             }, // include the following headers in all request so you can do auth or something,
 
-            timeout: 10000 //10 seconds timeout)
+            timeout: 20000 //10 seconds timeout)
 
             //ignoreResponse : true
         }, function(results){
