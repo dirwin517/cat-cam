@@ -10,8 +10,8 @@
           width:320px;
       }
       .liveCam {
-          height:480px;
-          width:640px;
+          height:520px;
+          width:660px;
       }
     </style>
 
@@ -28,7 +28,10 @@
 </script>
 
 {{#cameras}}
-      <a target="liveFrame" href="/single?name={{name}}"><img src="snapshot?name={{name}}" class="miniStill">{{name}}</a>
+      <span>
+          <a target="liveFrame" href="/single?name={{name}}"><img src="snapshot?name={{name}}" class="miniStill"></a>
+          <label>{{name}}</label>
+      </span>
 {{/cameras}}
 
 <iframe class="liveCam" src="" name="liveFrame"></iframe>
