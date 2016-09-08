@@ -29,8 +29,11 @@
 
 {{#cameras}}
       <span>
-          <a target="liveFrame" href="/single?name={{name}}"><img src="snapshot?name={{name}}" class="miniStill"></a>
-          <label>{{name}}</label>
+          <figure>
+              <img src="snapshot?name={{name}}" class="miniStill">
+              <figcaption>{{name}} -- <a target="liveFrame" href="/single?name={{name}}">LIVE</a></figcaption>
+
+          </figure>
       </span>
 {{/cameras}}
 
