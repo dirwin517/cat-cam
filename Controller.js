@@ -3,8 +3,6 @@
  */
 module.exports = function(opts){
 
-    var config = require('./config.json');
-
     var Mustache = require('mustache');
     var fs = require('fs');
 
