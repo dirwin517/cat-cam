@@ -74,15 +74,15 @@ module.exports = (function(){
                 Authorization:  'Basic ' + (new Buffer('admin' + ':' + 'admin', 'utf8')).toString('base64')
             }, // include the following headers in all request so you can do auth or something,
 
-            timeout: 20000 //10 seconds timeout)
+            timeout: 20000, //10 seconds timeout)
 
-            //ignoreResponse : true
+            ignoreResponse : false
         }, function(results) {
             if (typeof callback === 'function') {
-                callback(analyze(results));
+                callback(results);
             }
             else {
-                //console.log(JSON.stringify(results, null, 3));
+                console.log(JSON.stringify(results, null, 3));
             }
         });
     }
