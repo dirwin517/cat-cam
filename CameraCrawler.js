@@ -27,22 +27,26 @@ module.exports = (function(){
             return stringOfString.replace(/'|"/g,'').replace('var ', '').replace(';','');
         }
 
-        data.forEach((camera) => {
-            var newBody = {};
-            keyValues(camera).forEach((keyValue) => {
-                var kv = keyValue.split('=');
-                var key = unstring(kv[0]);
-                var value = unstring(kv[1]);
-                if(key && value) {
-                    newBody[key] = value;
-                }
+        try {
+            data.forEach((camera) => {
+                var newBody = {};
+                keyValues(camera).forEach((keyValue) => {
+                    var kv = keyValue.split('=');
+                    var key = unstring(kv[0]);
+                    var value = unstring(kv[1]);
+                    if (key && value) {
+                        newBody[key] = value;
+                    }
+                });
+
+                camera.alias = newBody.CameraName || newBody.alias;
+                delete camera.body;
+
             });
-
-            camera.alias = newBody.CameraName || newBody.alias;
-            delete camera.body;
-
-        });
-
+        }
+        catch(e){
+            console.log('error happened', e.stack);
+        }
         return data;
     }
 
@@ -83,7 +87,7 @@ module.exports = (function(){
 
     function ipscan(callback){
         rawScan(function(results){
-
+            console.log('raw Scan Results', results);
             callback(analyze(results));
         });
     }
