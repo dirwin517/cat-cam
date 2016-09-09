@@ -9,13 +9,15 @@ module.exports = (function(){
     function analyze(data){
 
         function keyValues(camera) {
-            if (camera.uri.indexOf('get_status.cgi') > -1) {
-                camera.type = 'FOSCAM';
-                return camera.body.split('\n')
-            }
-            else if (camera.uri.indexOf('system.cgi') > -1) {
-                camera.type = 'KEEBOX';
-                return camera.body.split('\r\n');
+            if(typeof camera === 'object' && typeof camera.body === 'string') {
+                if (camera.uri.indexOf('get_status.cgi') > -1) {
+                    camera.type = 'FOSCAM';
+                    return camera.body.split('\n')
+                }
+                else if (camera.uri.indexOf('system.cgi') > -1) {
+                    camera.type = 'KEEBOX';
+                    return camera.body.split('\r\n');
+                }
             }
             return [];
         }
