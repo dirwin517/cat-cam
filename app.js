@@ -20,9 +20,22 @@ app.use(compression({ filter : () => {true} }));
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-var st = require('st')
+var st = require('st');
 
-app.use(st(__dirname + '/public'));
+
+var mount = st({
+    path : __dirname + '/../www',
+    url : '/',
+
+    //index: 'index.html', // use 'index.html' file as the index
+    dot: false, // default: return 403 for any url with a dot-file part
+    passthrough: true, // calls next/returns instead of returning a 404 error
+    gzip: true, // default: compresses the response with gzip compression
+    cors: false // default: static assets not accessible from other domains
+});
+
+
+app.use(mount);
 
 var metrics = require('./metrics');
 
