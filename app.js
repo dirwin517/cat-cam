@@ -20,7 +20,9 @@ app.use(compression({ filter : () => {true} }));
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
+var st = require('st')
 
+app.use(st(__dirname + '/public'));
 
 var metrics = require('./metrics');
 

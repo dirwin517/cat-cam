@@ -51,7 +51,7 @@ module.exports = function(cameras){
 
     function ptzRequestOpts(camera) {
         var basicAuth = 'Basic ' + (new Buffer(camera.username + ':' + camera.password, 'utf8')).toString('base64');
-        console.log('basicAuth', basicAuth);
+        //console.log('basicAuth', basicAuth);
         return {
             pool : pool,
             agent : false,
@@ -88,7 +88,7 @@ module.exports = function(cameras){
         var uri = calcBaseUrl(camera) + camera.snapshot;
         var reqOpts = ptzRequestOpts(camera);
 
-        console.log('uri', uri, 'reqOpts', reqOpts);
+        //console.log('uri', uri, 'reqOpts', reqOpts);
 
         var proxy = request(uri, reqOpts, function cb(err, response){
             if(err) {
@@ -99,13 +99,13 @@ module.exports = function(cameras){
             }
 
             var end = new Date().getTime();
-            console.log('firstbyte', end-start);
+            //console.log('firstbyte', end-start);
         });
 
 
         proxy.on('end', function () {
             var end = new Date().getTime();
-            console.log('total', end-start);
+            //console.log('total', end-start);
         });
 
         var buffer = new streamBuffers.WritableStreamBuffer({

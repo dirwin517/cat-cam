@@ -21,12 +21,14 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "jimp": "^0.2.27",
+    "mic": "^2.1.1",
     "mjpeg-proxy": "^0.2.0",
     "mustache": "^2.2.1",
     "netscan": "1.0.3",
-    "node-microphone": "0.0.2",
     "pmx": "^0.6.4",
     "request": "^2.74.0",
+    "speaker": "^0.3.0",
+    "st": "^1.2.0",
     "stream-buffers": "^3.0.1"
   }
 }

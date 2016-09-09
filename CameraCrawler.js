@@ -46,7 +46,7 @@ module.exports = (function(){
         return data;
     }
 
-    function ipscan(callback){
+    function rawScan(callback){
         netscan.scan({
 
             protocol : ['http'],
@@ -71,14 +71,26 @@ module.exports = (function(){
             timeout: 20000 //10 seconds timeout)
 
             //ignoreResponse : true
-        }, function(results){
+        }, function(results) {
+            if (typeof callback === 'function') {
+                callback(analyze(results));
+            }
+            else {
+                //console.log(JSON.stringify(results, null, 3));
+            }
+        });
+    }
+
+    function ipscan(callback){
+        rawScan(function(results){
 
             callback(analyze(results));
         });
     }
 
     return {
-        scan : ipscan
+        scan : ipscan,
+        rawScan : rawScan
     }
 
 })();
