@@ -24,7 +24,7 @@ var st = require('st');
 
 
 var mount = st({
-    path : __dirname + '/../www',
+    path : __dirname + '/public',
     url : '/',
 
     //index: 'index.html', // use 'index.html' file as the index
