@@ -27,13 +27,21 @@
     }
 </script>
 
+<!--<img src="apartmentMap.jpg" width="145" height="126" alt="Planets" usemap="#apartmentMap">-->
+
+<!--<map name="apartmentMap">-->
+    <!--<area shape="rect" coords="0,0,82,126" href="sun.htm" alt="Sun">-->
+    <!--<area shape="circle" coords="90,58,3" href="mercur.htm" alt="Mercury">-->
+    <!--<area shape="circle" coords="124,58,8" href="venus.htm" alt="Venus">-->
+<!--</map>-->
+
 {{#cameras}}
       <span>
-          <figure>
+          <!--<figure>-->
               <img src="snapshot?name={{name}}" class="miniStill">
-              <figcaption>{{name}} -- <a target="liveFrame" href="/single?name={{name}}">LIVE</a></figcaption>
+              {{name}} -- <a target="liveFrame" href="/single?name={{name}}">LIVE</a>
 
-          </figure>
+          <!--</figure>-->
       </span>
 {{/cameras}}
 
